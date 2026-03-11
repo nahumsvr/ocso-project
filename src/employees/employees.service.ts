@@ -1,18 +1,19 @@
-import { Body, Injectable } from "@nestjs/common";
+import { Body, Injectable, NotFoundException } from "@nestjs/common";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { UpdateEmployeeDto } from "./dto/update-employee.dto";
+import { v4 as uuid } from "uuid";
 
 @Injectable()
 export class EmployeesService {
   private _employees = [
     {
-      id: 1,
+      id: uuid(),
       name: "nahum",
       lastName: "salvador",
       phoneNumber: "7771114477",
     },
     {
-      id: 2,
+      id: uuid(),
       name: "hector",
       lastName: "ramirez",
       phoneNumber: "4441114477",
@@ -20,7 +21,7 @@ export class EmployeesService {
   ];
 
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    createEmployeeDto.id = this._employees.length + 1;
+    createEmployeeDto.id = uuid();
     this._employees.push(createEmployeeDto);
     return createEmployeeDto;
   }
@@ -29,13 +30,15 @@ export class EmployeesService {
     return this._employees;
   }
 
-  findOne(id: number) {
-    return this._employees.find((e) => e.id == id);
+  findOne(id: string) {
+    const emp = this._employees.find((e) => e.id == id);
+    if (!emp)
+      throw new NotFoundException(`Empleado con id ${id} no encontrado`);
+    return emp;
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+  update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     const employeeToUpdate = this.findOne(id);
-    if (!employeeToUpdate) return { error: "Usuario no encontrado" };
 
     const updatedEmployee = {
       ...employeeToUpdate,
@@ -52,13 +55,12 @@ export class EmployeesService {
     return updatedEmployee;
   }
 
-  remove(id: number) {
-    const employee = this._employees.find((e) => e.id == id);
-    if (!employee) return { error: "empleado no encontrado" };
+  remove(id: string) {
+    const employee = this.findOne(id);
     const newEmployees = this._employees.filter((e) => e.id !== id);
     this._employees = newEmployees;
     return {
-      succes: `Empleado ${employee.name} con el id ${employee.id} ha sido eliminado`,
+      succes: `Empleado ${employee!.name} con el id ${employee!.id} ha sido eliminado`,
     };
   }
 }
