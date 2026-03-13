@@ -1,14 +1,14 @@
 info:
-  name: get by provider id
+  name: delete by id
   type: http
   seq: 4
 
 http:
-  method: GET
-  url: "{{URL}}/products/provider/:providerId"
+  method: DELETE
+  url: "{{URL}}/providers/:id"
   params:
-    - name: providerId
-      value: c397cb2e-c18d-41d8-ae81-5ea9f6b247fe
+    - name: id
+      value: c1a16b75-7d5e-4dc4-9077-4b3b705a3eb4
       type: path
   auth: inherit
 

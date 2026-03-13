@@ -1,0 +1,25 @@
+info:
+  name: update by id
+  type: http
+  seq: 5
+
+http:
+  method: PATCH
+  url: "{{URL}}/providers/:id"
+  params:
+    - name: id
+      value: 767ea220-d49d-45d6-afb1-81cab94925ed
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "providerEmail": "business@cocacola.com" 
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

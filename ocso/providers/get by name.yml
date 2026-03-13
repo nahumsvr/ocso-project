@@ -1,14 +1,14 @@
 info:
-  name: get by provider id
+  name: get by name
   type: http
-  seq: 4
+  seq: 6
 
 http:
   method: GET
-  url: "{{URL}}/products/provider/:providerId"
+  url: "{{URL}}/providers/name/:name"
   params:
-    - name: providerId
-      value: c397cb2e-c18d-41d8-ae81-5ea9f6b247fe
+    - name: name
+      value: Pepsico
       type: path
   auth: inherit
 

@@ -1,19 +1,18 @@
 info:
   name: create
   type: http
-  seq: 4
+  seq: 3
 
 http:
   method: POST
-  url: "{{URL}}/products"
+  url: "{{URL}}/providers"
   body:
     type: json
     data: |-
       {
-        "productName": "Pepsi black",
-        "price": 19,
-        "countSeal": 15,
-        "provider": "c397cb2e-c18d-41d8-ae81-5ea9f6b247fe"
+        "providerName": "Coca Cola",
+        "providerEmail": "cocacola@pepsico.com",
+        "provider"
       }
   auth: inherit
 
