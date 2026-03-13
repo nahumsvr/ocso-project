@@ -30,7 +30,7 @@ export class ProductsService {
     },
   ];
   create(createProductDto: CreateProductDto) {
-    createProductDto.productId = uuid();
+    if (!createProductDto.productId) createProductDto.productId = uuid();
     this.products.push(createProductDto);
     return createProductDto;
   }
@@ -65,6 +65,7 @@ export class ProductsService {
   remove(id: string) {
     const product = this.findOne(id);
     const updatedProducts = this.products.filter((p) => p.productId !== id);
+    this.products = updatedProducts;
     return product;
   }
 }
