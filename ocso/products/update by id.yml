@@ -5,11 +5,17 @@ info:
 
 http:
   method: PATCH
-  url: "{{URL}}/products/provider/:id"
+  url: "{{URL}}/products/:id"
   params:
     - name: id
-      value: e0ada6c6-f20e-477a-9fdd-acd8c071b9ef
+      value: 45535e74-d464-400e-b1df-db602042ea54
       type: path
+  body:
+    type: json
+    data: |-
+      {
+        "productName": "Nuevo nombre" 
+      }
   auth: inherit
 
 settings:

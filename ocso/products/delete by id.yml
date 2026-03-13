@@ -8,7 +8,7 @@ http:
   url: "{{URL}}/products/:id"
   params:
     - name: id
-      value: 517b1b98-4cce-4518-a3e8-3b8161b7edfb
+      value: 45535e74-d464-400e-b1df-db602042ea54
       type: path
   auth: inherit
 

@@ -47,7 +47,7 @@ export class ProductsService {
 
   async findOne(id: string) {
     const product = await this.productRepository.findOneBy({ productId: id });
-    if (!product) return new NotFoundException();
+    if (!product) throw new NotFoundException();
     return product;
   }
 
@@ -57,20 +57,24 @@ export class ProductsService {
     return products;
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
-    //    const product = this.findOne(id);
-    //    const updatedProduct = { ...product, ...updateProductDto };
-    //    const updatedProducts = this.products.map((p) => {
-    //      if (p.productId !== id) return p;
-    //      return updatedProduct;
-    //    });
-    //    this.products = updatedProducts;
-    //    return updatedProduct;
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    const productToUpdate = await this.productRepository.preload({
+      productId: id,
+      ...updateProductDto,
+    });
+
+    if (!productToUpdate) throw new NotFoundException();
+
+    this.productRepository.save(productToUpdate);
+    return productToUpdate;
   }
 
   async remove(id: string) {
     const product = await this.findOne(id);
     await this.productRepository.delete(id);
-    return product;
+    return {
+      message: `Product '${product.productName}' was deleted`,
+      product,
+    };
   }
 }
