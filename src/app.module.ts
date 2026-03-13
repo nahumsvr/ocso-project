@@ -9,9 +9,8 @@ import { ProductsModule } from "./products/products.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // Lo hace disponible en toda la app sin re-importar
+      isGlobal: true,
     }),
-    // 2. Usamos forRootAsync para inyectar el ConfigService
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -22,8 +21,9 @@ import { ProductsModule } from "./products/products.module";
         username: configService.get<string>("DB_USERNAME", "postgres"),
         password: configService.get<string>("DB_PASSWORD"),
         database: configService.get<string>("DB_NAME"),
-        entities: [__dirname + "/**/*.entity{.ts,.js}"],
-        synchronize: true, // Cuidado: Solo para desarrollo
+        entities: [],
+        autoLoadEntities: true,
+        synchronize: configService.get<string>("NODE_ENV") !== "production",
       }),
     }),
     EmployeesModule,
