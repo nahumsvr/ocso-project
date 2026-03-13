@@ -1,0 +1,19 @@
+info:
+  name: get by provider id
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{URL}}/products/provider/:id"
+  params:
+    - name: id
+      value: e0ada6c6-f20e-477a-9fdd-acd8c071b9ef
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,11 +1,17 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { v4 as uuid } from "uuid";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
-import { v4 as uuid } from "uuid";
-import { NotFoundError } from "rxjs";
+import { Product } from "./entities/product.entity";
 
 @Injectable()
 export class ProductsService {
+  constructor(
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
+  ) {}
   private products: CreateProductDto[] = [
     {
       productId: uuid(),
@@ -29,19 +35,19 @@ export class ProductsService {
       provider: uuid(),
     },
   ];
-  create(createProductDto: CreateProductDto) {
-    if (!createProductDto.productId) createProductDto.productId = uuid();
-    this.products.push(createProductDto);
-    return createProductDto;
+
+  async create(createProductDto: CreateProductDto) {
+    const newProduct = this.productRepository.save(createProductDto);
+    return newProduct;
   }
 
   findAll() {
-    return this.products;
+    return this.productRepository.find();
   }
 
-  findOne(id: string) {
-    const product = this.products.find((p) => p.productId == id);
-    if (!product) throw new NotFoundException();
+  async findOne(id: string) {
+    const product = await this.productRepository.findOneBy({ productId: id });
+    if (!product) return new NotFoundException();
     return product;
   }
 
@@ -52,20 +58,19 @@ export class ProductsService {
   }
 
   update(id: string, updateProductDto: UpdateProductDto) {
-    const product = this.findOne(id);
-    const updatedProduct = { ...product, ...updateProductDto };
-    const updatedProducts = this.products.map((p) => {
-      if (p.productId !== id) return p;
-      return updatedProduct;
-    });
-    this.products = updatedProducts;
-    return updatedProduct;
+    //    const product = this.findOne(id);
+    //    const updatedProduct = { ...product, ...updateProductDto };
+    //    const updatedProducts = this.products.map((p) => {
+    //      if (p.productId !== id) return p;
+    //      return updatedProduct;
+    //    });
+    //    this.products = updatedProducts;
+    //    return updatedProduct;
   }
 
-  remove(id: string) {
-    const product = this.findOne(id);
-    const updatedProducts = this.products.filter((p) => p.productId !== id);
-    this.products = updatedProducts;
+  async remove(id: string) {
+    const product = await this.findOne(id);
+    await this.productRepository.delete(id);
     return product;
   }
 }

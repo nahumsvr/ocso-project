@@ -1,0 +1,19 @@
+info:
+  name: update by id
+  type: http
+  seq: 6
+
+http:
+  method: PATCH
+  url: "{{URL}}/products/provider/:id"
+  params:
+    - name: id
+      value: e0ada6c6-f20e-477a-9fdd-acd8c071b9ef
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
