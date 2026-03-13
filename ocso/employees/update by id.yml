@@ -1,0 +1,25 @@
+info:
+  name: update by id
+  type: http
+  seq: 5
+
+http:
+  method: PATCH
+  url: "{{URL}}/employees/:id"
+  params:
+    - name: id
+      value: 69dc58d7-0d8b-4311-87cd-0e1263de0f5c
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "email": "nahum@sal.com" 
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,24 @@
+info:
+  name: create
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{URL}}/employees"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Nahum",
+        "lastName": "Salvador",
+        "phoneNumber": "7717717711",
+        "email": "na@sal.com"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
