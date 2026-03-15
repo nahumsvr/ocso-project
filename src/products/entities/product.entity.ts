@@ -1,5 +1,11 @@
 import { Provider } from "src/providers/entities/provider.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
 export class Product {
@@ -14,5 +20,6 @@ export class Product {
   @ManyToOne(() => Provider, (provider) => provider.products, {
     eager: true,
   })
+  @JoinColumn({ name: "providerId" })
   provider: Provider;
 }
