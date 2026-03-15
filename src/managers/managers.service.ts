@@ -1,26 +1,51 @@
-import { Injectable } from '@nestjs/common';
-import { CreateManagerDto } from './dto/create-manager.dto';
-import { UpdateManagerDto } from './dto/update-manager.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { CreateManagerDto } from "./dto/create-manager.dto";
+import { UpdateManagerDto } from "./dto/update-manager.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Manager } from "./entities/manager.entity";
 
 @Injectable()
 export class ManagersService {
-  create(createManagerDto: CreateManagerDto) {
-    return 'This action adds a new manager';
+  constructor(
+    @InjectRepository(Manager)
+    private managerRepository: Repository<Manager>,
+  ) {}
+
+  async create(createManagerDto: CreateManagerDto) {
+    return await this.managerRepository.save(createManagerDto);
   }
 
-  findAll() {
-    return `This action returns all managers`;
+  async findAll() {
+    return await this.managerRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} manager`;
+  async findOne(id: string) {
+    const manager = await this.managerRepository.findOneBy({ managerId: id });
+    if (!manager) throw new NotFoundException();
+    return manager;
   }
 
-  update(id: number, updateManagerDto: UpdateManagerDto) {
-    return `This action updates a #${id} manager`;
+  async update(id: string, updateManagerDto: UpdateManagerDto) {
+    const newManager = await this.managerRepository.preload({
+      managerId: id,
+      ...updateManagerDto,
+    });
+
+    if (!newManager) throw new NotFoundException();
+
+    this.managerRepository.save(newManager);
+
+    return newManager;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} manager`;
+  async remove(id: string) {
+    const manager = await this.findOne(id);
+    this.managerRepository.delete({ managerId: id });
+
+    return {
+      message: `Manager '${manager.managerFullname}' was deleted`,
+      manager,
+    };
   }
 }
