@@ -6,16 +6,17 @@ import {
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { User } from "./entities/user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateAuthDto } from "./dto/update-user.dto";
+import { JwtService } from "@nestjs/jwt";
+import { LoginUserDto } from "./dto/login-user-dto";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async registerUser(createUserDto: CreateUserDto) {
@@ -33,21 +34,26 @@ export class AuthService {
     }
   }
 
-  async login(createUserDto: CreateUserDto) {
+  async login(loginUserDto: LoginUserDto) {
     const user = await this.userRepository.findOneBy({
-      userEmail: createUserDto.userEmail,
+      userEmail: loginUserDto.userEmail,
     });
 
     if (!user) throw new InternalServerErrorException("El usuario no existe");
 
     const match = await bcrypt.compare(
-      createUserDto.userPassword,
+      loginUserDto.userPassword,
       user.userPassword,
     );
 
     if (!match) throw new UnauthorizedException("Credenciales incorrectas");
 
-    const token = jwt.sign(JSON.stringify(user), "SECRET KEY");
+    const token = this.jwtService.sign({
+      userEmail: user.userEmail,
+      userPassword: user.userPassword,
+      userRoles: user.userRoles
+    })
+
     return { token: token };
   }
 }

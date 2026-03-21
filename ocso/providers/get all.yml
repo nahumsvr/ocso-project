@@ -6,7 +6,9 @@ info:
 http:
   method: GET
   url: "{{URL}}/providers"
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibG9sbEBsb2wuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkRVJhaUdsdlN5NkF4SEdEL0VONXpHZTl3Z3lNWjVDWlU4NWtZcDN2L2dJN1Z4Ylgyd3dtaC4iLCJpYXQiOjE3NzQxMTMyOTUsImV4cCI6MTc3NDExMzQxNX0.OznryHmIycPMKy3IJOeObmE6MhZx5ihe3ApSl-1uGjg
 
 settings:
   encodeUrl: true

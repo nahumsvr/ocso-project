@@ -10,4 +10,6 @@ export class User {
   @Exclude()
   @Column("text")
   userPassword: string;
+  @Column("simple-array", {default: "Employee"})
+  userRoles: string[];
 }

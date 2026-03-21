@@ -8,6 +8,7 @@ import {
 import { AuthService } from "./auth.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateAuthDto } from "./dto/update-user.dto";
+import { LoginUserDto } from "./dto/login-user-dto";
 
 @Controller("auth")
 @UseInterceptors(ClassSerializerInterceptor)
@@ -20,7 +21,7 @@ export class AuthController {
   }
 
   @Post("/signin")
-  signIn(@Body() createUserDto: CreateUserDto) {
-    return this.authService.login(createUserDto);
+  signIn(@Body() loginUserDto: LoginUserDto) {
+    return this.authService.login(loginUserDto);
   }
 }
