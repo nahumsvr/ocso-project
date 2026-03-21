@@ -14,15 +14,15 @@ export class Employee {
   @PrimaryGeneratedColumn("uuid")
   employeeId: string;
   @Column("text")
-  name: string;
+  employeeName: string;
   @Column("text")
-  lastName: string;
+  employeeLastName: string;
   @Column("text")
-  phoneNumber: string;
-  @Column("text")
+  employeePhoneNumber: string;
+  @Column("text", {unique: true})
   email: string;
   @Column("text", { nullable: true })
-  photoUrl: string;
+  employeePhotoUrl: string;
   @ManyToOne(() => Location, (location) => location.employees)
   @JoinColumn({ name: "locationId" })
   location: Location;

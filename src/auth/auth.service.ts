@@ -1,6 +1,7 @@
 import {
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -10,6 +11,7 @@ import { User } from "./entities/user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { JwtService } from "@nestjs/jwt";
 import { LoginUserDto } from "./dto/login-user-dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Injectable()
 export class AuthService {
@@ -55,5 +57,16 @@ export class AuthService {
     })
 
     return { token: token };
+  }
+
+  async updateUser(userEmail: string, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.userRepository.preload({
+      userEmail: userEmail,
+      ...updateUserDto,
+    });
+
+    if (!updatedUser) throw new NotFoundException("El usuario no existe");
+
+    return await this.userRepository.save(updatedUser);
   }
 }

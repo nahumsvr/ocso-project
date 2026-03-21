@@ -52,7 +52,7 @@ export class EmployeesService {
     });
 
     return {
-      message: `The employee '${employeeToDelete.name} ${employeeToDelete.lastName}' was deleted`,
+      message: `The employee '${employeeToDelete.employeeName} ${employeeToDelete.employeeLastName}' was deleted`,
       employeeToDelete,
     };
   }
