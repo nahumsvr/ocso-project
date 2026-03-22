@@ -20,7 +20,7 @@ export class Employee {
   @Column("text")
   employeePhoneNumber: string;
   @Column("text", {unique: true})
-  email: string;
+  employeeEmail: string;
   @Column("text", { nullable: true })
   employeePhotoUrl: string;
   @ManyToOne(() => Location, (location) => location.employees)

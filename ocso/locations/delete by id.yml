@@ -1,0 +1,19 @@
+info:
+  name: delete by id
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{URL}}/locations/:id"
+  params:
+    - name: id
+      value: c1a16b75-7d5e-4dc4-9077-4b3b705a3eb4
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

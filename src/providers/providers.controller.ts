@@ -15,7 +15,9 @@ import { UserData } from "src/auth/decorators/user.decorator";
 import { User } from "src/auth/entities/user.entity";
 import { Auth } from "src/auth/decorators/auth.decorator";
 import { ROLES } from "src/auth/constants/roles.constants";
+import { ApiAuth } from "src/auth/decorators/api.decorator";
 
+@ApiAuth()
 @Controller("providers")
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}
@@ -29,7 +31,10 @@ export class ProvidersController {
   @Auth(ROLES.MANAGER, ROLES.EMPLOYEE)
   @Get()
   findAll(@UserData() user: User) {
-    if(user.userRoles.includes("Employee")) throw new UnauthorizedException("No estás autorizado, solo managers y admins");
+    if (user.userRoles.includes("Employee"))
+      throw new UnauthorizedException(
+        "No estás autorizado, solo managers y admins",
+      );
     return this.providersService.findAll();
   }
 

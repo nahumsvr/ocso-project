@@ -1,6 +1,7 @@
 import {
   IsInt,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   IsUUID,
@@ -21,7 +22,7 @@ export class CreateProductDto extends Product {
   declare price: number;
   @IsInt()
   declare countSeal: number;
-  @IsString()
-  @IsUUID("4")
+  @IsObject()
+  @IsOptional()
   declare provider: Provider;
 }

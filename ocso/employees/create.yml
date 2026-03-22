@@ -10,12 +10,17 @@ http:
     type: json
     data: |-
       {
-        "name": "Nahum",
-        "lastName": "Salvador",
-        "phoneNumber": "7717717711",
-        "email": "na@sal.com"
+        "employeeName": "Nahum2",
+        "employeeLastName": "Salva2dor",
+        "employeePhoneNumber": "7717717711",
+        "employeeEmail": "na2@sal.com",
+        "location": {
+          "locationID": 1
+        }
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJsb2xsQGxvbC5jb20iLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMTAkUFNYSnpWSzhuL21aeFVYMjlNdU9HLnRFQkdFQ29DMWdsMi5mZG5OSHFncUlsWXBNWlpncEMiLCJ1c2VyUm9sZXMiOlsiQWRtaW4iXSwiaWF0IjoxNzc0MTI0MzA1LCJleHAiOjE3NzQxMjQ0MjV9.piEKfjktDdw8s_UKx_XyGJffnIjiJtGAF0sJexgKdo4
 
 settings:
   encodeUrl: true
