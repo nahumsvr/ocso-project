@@ -41,7 +41,7 @@ export class AuthService {
       userEmail: loginUserDto.userEmail,
     });
 
-    if (!user) throw new InternalServerErrorException("El usuario no existe");
+    if (!user) throw new UnauthorizedException("Credenciales incorrectas");
 
     const match = await bcrypt.compare(
       loginUserDto.userPassword,
@@ -53,8 +53,8 @@ export class AuthService {
     const token = this.jwtService.sign({
       userEmail: user.userEmail,
       userPassword: user.userPassword,
-      userRoles: user.userRoles
-    })
+      userRoles: user.userRoles,
+    });
 
     return { token: token };
   }

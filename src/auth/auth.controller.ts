@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Res,
   UseInterceptors,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
@@ -12,6 +13,9 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginUserDto } from "./dto/login-user-dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { ApiTags } from "@nestjs/swagger";
+import type { Response } from "express";
+import { COOKIE_NAME } from "./constants/jwt.constants";
+import { log } from "node:console";
 
 @ApiTags("Auth")
 @Controller("auth")
@@ -25,8 +29,18 @@ export class AuthController {
   }
 
   @Post("/signin")
-  signIn(@Body() loginUserDto: LoginUserDto) {
-    return this.authService.login(loginUserDto);
+  async signIn(
+    @Body() loginUserDto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const token = await this.authService.login(loginUserDto);
+    response.cookie(COOKIE_NAME, token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+    });
+    return { token };
   }
 
   @Patch("/:email")
