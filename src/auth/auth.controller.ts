@@ -34,7 +34,7 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const token = await this.authService.login(loginUserDto);
-    response.cookie(COOKIE_NAME, token, {
+    response.cookie(COOKIE_NAME, token.token, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
