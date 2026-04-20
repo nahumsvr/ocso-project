@@ -1,21 +1,15 @@
 info:
-  name: create
+  name: get all by location id
   type: http
-  seq: 3
+  seq: 7
 
 http:
-  method: POST
-  url: "{{URL}}/employees"
-  body:
-    type: json
-    data: |-
-      {
-        "employeeName": "Hector",
-        "employeeLastName": "Ramirez",
-        "employeePhoneNumber": "7717710721",
-        "employeeEmail": "hector2@sal.com",
-        "locationId": 1
-      }
+  method: GET
+  url: "{{URL}}/employees/location/:id"
+  params:
+    - name: id
+      value: "2"
+      type: path
   auth:
     type: bearer
     token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJsb2xsQGxvbC5jb20iLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMTAkUFNYSnpWSzhuL21aeFVYMjlNdU9HLnRFQkdFQ29DMWdsMi5mZG5OSHFncUlsWXBNWlpncEMiLCJ1c2VyUm9sZXMiOlsiQWRtaW4iXSwiaWF0IjoxNzc2NzE2NDQ4LCJleHAiOjE3NzczMjEyNDh9.SemxbXf5gqV4DJV7TVjOb58CU1eV5hOCwRnqJsdm2xk

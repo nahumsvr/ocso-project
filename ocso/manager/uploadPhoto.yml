@@ -1,0 +1,21 @@
+info:
+  name: uploadPhoto
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{URL}}/employees/photo"
+  body:
+    type: multipart-form
+    data:
+      - name: file
+        type: file
+        value:
+          - /Users/nahumsvr/Downloads/perro.jpg
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,29 @@
+info:
+  name: update by id
+  type: http
+  seq: 5
+
+http:
+  method: PATCH
+  url: "{{URL}}/employees/:id"
+  params:
+    - name: id
+      value: 925a3c9d-604e-4670-aea0-e81481b51f7f
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "location": {
+          "locationId": 2
+        } 
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJsb2xsQGxvbC5jb20iLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMTAkUFNYSnpWSzhuL21aeFVYMjlNdU9HLnRFQkdFQ29DMWdsMi5mZG5OSHFncUlsWXBNWlpncEMiLCJ1c2VyUm9sZXMiOlsiQWRtaW4iXSwiaWF0IjoxNzc0MTI2NjUwLCJleHAiOjE3NzQxMjY3NzB9.yfU0y8B-0UQRglLeGffVpGTUbdf048QSjq5hYz7UBlU
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
