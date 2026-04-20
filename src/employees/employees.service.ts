@@ -13,7 +13,12 @@ export class EmployeesService {
   ) {}
 
   async create(createEmployeeDto: CreateEmployeeDto) {
-    const employee = await this.employeeRepository.save(createEmployeeDto);
+    const employee = await this.employeeRepository.save({
+      ...createEmployeeDto,
+      ...(createEmployeeDto.locationId && {
+        location: { locationId: createEmployeeDto.locationId },
+      }),
+    });
     return employee;
   }
 
@@ -41,6 +46,9 @@ export class EmployeesService {
     const newEmployee = await this.employeeRepository.preload({
       employeeId: id,
       ...updateEmployeeDto,
+      ...(updateEmployeeDto.locationId && {
+        location: { locationId: updateEmployeeDto.locationId },
+      }),
     });
 
     if (!newEmployee) throw new NotFoundException();

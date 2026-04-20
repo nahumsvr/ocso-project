@@ -10,17 +10,15 @@ http:
     type: json
     data: |-
       {
-        "employeeName": "Nahum2",
-        "employeeLastName": "Salva2dor",
-        "employeePhoneNumber": "7717717711",
-        "employeeEmail": "na2@sal.com",
-        "location": {
-          "locationID": 1
-        }
+        "employeeName": "Nahum",
+        "employeeLastName": "Salvador Martinez",
+        "employeePhoneNumber": "7717717721",
+        "employeeEmail": "nasda2@sal.com",
+        "locationId": 1
       }
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJsb2xsQGxvbC5jb20iLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMTAkUFNYSnpWSzhuL21aeFVYMjlNdU9HLnRFQkdFQ29DMWdsMi5mZG5OSHFncUlsWXBNWlpncEMiLCJ1c2VyUm9sZXMiOlsiQWRtaW4iXSwiaWF0IjoxNzc0MTI0MzA1LCJleHAiOjE3NzQxMjQ0MjV9.piEKfjktDdw8s_UKx_XyGJffnIjiJtGAF0sJexgKdo4
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJsb2xsQGxvbC5jb20iLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMTAkUFNYSnpWSzhuL21aeFVYMjlNdU9HLnRFQkdFQ29DMWdsMi5mZG5OSHFncUlsWXBNWlpncEMiLCJ1c2VyUm9sZXMiOlsiQWRtaW4iXSwiaWF0IjoxNzc2NzE2NDQ4LCJleHAiOjE3NzczMjEyNDh9.SemxbXf5gqV4DJV7TVjOb58CU1eV5hOCwRnqJsdm2xk
 
 settings:
   encodeUrl: true
