@@ -4,6 +4,7 @@ import {
   IsObject,
   IsOptional,
   IsString,
+  IsUUID,
   MaxLength,
 } from "class-validator";
 import { Location } from "../entities/location.entity";
@@ -27,4 +28,7 @@ export class CreateLocationDto {
   @IsObject()
   @IsOptional()
   declare region: Region;
+  @IsUUID()
+  @IsOptional()
+  manager: string;
 }

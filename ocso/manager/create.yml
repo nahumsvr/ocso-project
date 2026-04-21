@@ -10,11 +10,11 @@ http:
     type: json
     data: |-
       {
-        "employeeName": "Hector",
-        "employeeLastName": "Ramirez",
-        "employeePhoneNumber": "7717710721",
-        "employeeEmail": "hector2@sal.com",
-        "locationId": 1
+        "managerFullname": "Angel Nahum Salvador",
+        "managerSalary": 12000,
+        "managerEmail": "nahum@nahum.com",
+        "managerPhoneNumber": 1112223344,
+        "location": 1
       }
   auth:
     type: bearer
