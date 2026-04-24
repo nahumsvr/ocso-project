@@ -24,7 +24,7 @@ export class Manager {
   @IsOptional()
   @OneToOne(() => Location)
   @JoinColumn({ name: "locationId" })
-  location: Location | null;
+  location: Location | string | null;
   @OneToOne(() => User)
   @JoinColumn({ name: "userId" })
   user: User;
