@@ -21,9 +21,9 @@ export class Manager {
   managerEmail: string;
   @Column("text")
   managerPhoneNumber: string;
+  @IsOptional()
   @OneToOne(() => Location)
   @JoinColumn({ name: "locationId" })
-  @IsOptional()
   location: Location | null;
   @OneToOne(() => User)
   @JoinColumn({ name: "userId" })
