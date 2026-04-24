@@ -17,7 +17,9 @@ export class ManagersService {
   }
 
   async findAll() {
-    return await this.managerRepository.find();
+    return await this.managerRepository.find({
+      relations: { location: true },
+    });
   }
 
   async findOne(id: string) {
