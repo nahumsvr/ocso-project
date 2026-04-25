@@ -17,7 +17,9 @@ export class ProvidersService {
   }
 
   async findAll() {
-    return await this.providerRepository.find();
+    return await this.providerRepository.find({
+      relations: { products: true },
+    });
   }
 
   async findOne(id: string) {
