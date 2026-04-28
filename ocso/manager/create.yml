@@ -10,10 +10,10 @@ http:
     type: json
     data: |-
       {
-        "managerFullname": "Massimo Chung Cruzado",
-        "managerSalary": 12000,
-        "managerEmail": "massimo@mail.com",
-        "managerPhoneNumber": 8888888888
+        "managerFullname": "Diego Maldonado",
+        "managerSalary": 222000,
+        "managerEmail": "diego_maldo@mail.com",
+        "managerPhoneNumber": 7771117711
       }
   auth:
     type: bearer
