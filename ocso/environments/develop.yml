@@ -2,3 +2,5 @@ name: develop
 variables:
   - name: URL
     value: http://localhost:3100
+  - name: auth
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJsb2xsQGxvbC5jb20iLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMTAkUFNYSnpWSzhuL21aeFVYMjlNdU9HLnRFQkdFQ29DMWdsMi5mZG5OSHFncUlsWXBNWlpncEMiLCJ1c2VyUm9sZXMiOlsiQWRtaW4iXSwiaWF0IjoxNzc3ODQ5MTcwLCJleHAiOjE3Nzg0NTM5NzB9.RnMIN2xgvZgwfq1fGruBEUUNssbxS0Hy12fhDoIAkcw

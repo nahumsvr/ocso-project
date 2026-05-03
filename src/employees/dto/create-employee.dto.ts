@@ -27,6 +27,9 @@ export class CreateEmployeeDto {
   @IsString()
   @MaxLength(10)
   employeePhoneNumber: string;
+  @IsOptional()
+  @IsString()
+  employeePhotoUrl: string;
   @ApiProperty({ default: "john.doe@email.com" })
   @IsString()
   @IsEmail()

@@ -12,7 +12,9 @@ http:
       - name: file
         type: file
         value:
-          - /Users/nahumsvr/Downloads/perro.jpg
+          - /Users/nahumsvr/Desktop/023c7839633d38b5951066e268dd4475.jpg
+  auth:
+    type: bearer
 
 settings:
   encodeUrl: true
