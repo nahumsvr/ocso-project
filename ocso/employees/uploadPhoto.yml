@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{URL}}/employees/photo"
+  url: "{{URL}}/employees/photo/925a3c9d-604e-4670-aea0-e81481b51f7f"
   body:
     type: multipart-form
     data:
@@ -15,6 +15,7 @@ http:
           - /Users/nahumsvr/Desktop/023c7839633d38b5951066e268dd4475.jpg
   auth:
     type: bearer
+    token: "{{auth}}"
 
 settings:
   encodeUrl: true

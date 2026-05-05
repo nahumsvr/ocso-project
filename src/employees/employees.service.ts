@@ -23,12 +23,21 @@ export class EmployeesService {
   }
 
   findAll() {
-    return this.employeeRepository.find();
+    return this.employeeRepository.find({
+      relations: {
+        location: true,
+      },
+    });
   }
 
   async findOne(id: string) {
-    const employee = await this.employeeRepository.findOneBy({
-      employeeId: id,
+    const employee = await this.employeeRepository.findOne({
+      where: {
+        employeeId: id,
+      },
+      relations: {
+        location: true,
+      },
     });
 
     if (!employee) throw new NotFoundException();
