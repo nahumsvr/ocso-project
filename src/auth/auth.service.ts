@@ -12,14 +12,76 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { JwtService } from "@nestjs/jwt";
 import { LoginUserDto } from "./dto/login-user-dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { Employee } from "src/employees/entities/employee.entity";
+import { Manager } from "src/managers/entities/manager.entity";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Employee)
+    private employeeRepository: Repository<Employee>,
+    @InjectRepository(Manager)
+    private managerRepository: Repository<Manager>,
     private jwtService: JwtService,
   ) {}
+
+  async registerEmployee(id: string, createUserDto: CreateUserDto) {
+    try {
+      const hashedPassword = await bcrypt.hash(createUserDto.userPassword, 10);
+      const userData = { ...createUserDto, userPassword: hashedPassword };
+
+      const newUser = this.userRepository.create(userData);
+
+      await this.userRepository.save(newUser);
+
+      const employeeToUpdate = await this.employeeRepository.preload({
+        employeeId: id,
+      });
+
+      if (employeeToUpdate == undefined)
+        throw new InternalServerErrorException(
+          "Error inesperado al crear el usuario",
+        );
+
+      employeeToUpdate.user = newUser;
+
+      return this.employeeRepository.save(employeeToUpdate);
+    } catch {
+      throw new InternalServerErrorException(
+        "Error inesperado al crear el usuario",
+      );
+    }
+  }
+
+  async registerManager(id: string, createUserDto: CreateUserDto) {
+    try {
+      const hashedPassword = await bcrypt.hash(createUserDto.userPassword, 10);
+      const userData = { ...createUserDto, userPassword: hashedPassword };
+
+      const newUser = this.userRepository.create(userData);
+
+      await this.userRepository.save(newUser);
+
+      const employeeToUpdate = await this.managerRepository.preload({
+        managerId: id,
+      });
+
+      if (employeeToUpdate == undefined)
+        throw new InternalServerErrorException(
+          "Error inesperado al crear el usuario",
+        );
+
+      employeeToUpdate.user = newUser;
+
+      return this.managerRepository.save(employeeToUpdate);
+    } catch {
+      throw new InternalServerErrorException(
+        "Error inesperado al crear el usuario",
+      );
+    }
+  }
 
   async registerUser(createUserDto: CreateUserDto) {
     try {

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   ClassSerializerInterceptor,
   Controller,
@@ -25,6 +26,29 @@ export class AuthController {
 
   @Post("/signup")
   singUp(@Body() createUserDto: CreateUserDto) {
+    return this.authService.registerUser(createUserDto);
+  }
+  @Post("/register/employee/:id")
+  registerEmployee(
+    @Body() createUserDto: CreateUserDto,
+    @Param("id") id: string,
+  ) {
+    if (
+      createUserDto.userRoles.includes("Admin") ||
+      createUserDto.userRoles.includes("Manager")
+    )
+      throw new BadRequestException("Rol inválido");
+
+    return this.authService.registerEmployee(id, createUserDto);
+  }
+  @Post("/register/manager")
+  registerManager(@Body() createUserDto: CreateUserDto) {
+    if (
+      createUserDto.userRoles.includes("Admin") ||
+      createUserDto.userRoles.includes("Employee")
+    )
+      throw new BadRequestException("Rol inválido");
+
     return this.authService.registerUser(createUserDto);
   }
 
