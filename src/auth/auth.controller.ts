@@ -16,7 +16,6 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { ApiTags } from "@nestjs/swagger";
 import type { Response } from "express";
 import { COOKIE_NAME } from "./constants/jwt.constants";
-import { log } from "node:console";
 
 @ApiTags("Auth")
 @Controller("auth")

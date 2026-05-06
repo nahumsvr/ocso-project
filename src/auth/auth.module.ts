@@ -3,12 +3,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
 import { User } from "./entities/user.entity";
+import { Employee } from "src/employees/entities/employee.entity";
+import { Manager } from "src/managers/entities/manager.entity";
 import { JwtModule } from "@nestjs/jwt";
 import { EXPIRES_IN, JWT_KEY } from "./constants/jwt.constants";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Employee, Manager]),
     JwtModule.register({
       secret: JWT_KEY,
       signOptions: {
