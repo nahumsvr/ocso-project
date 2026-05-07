@@ -37,6 +37,7 @@ export class EmployeesService {
       },
       relations: {
         location: true,
+        user: true,
       },
     });
 
