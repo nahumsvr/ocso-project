@@ -27,30 +27,21 @@ export class AuthController {
   singUp(@Body() createUserDto: CreateUserDto) {
     return this.authService.registerUser(createUserDto);
   }
-  @Post("/register/employee/:id")
-  registerEmployee(
+
+  @Post("/register/:id/:role")
+  registerUser(
+    @Param("role") role: string,
     @Body() createUserDto: CreateUserDto,
     @Param("id") id: string,
   ) {
-    if (
-      createUserDto.userRoles.includes("Admin") ||
-      createUserDto.userRoles.includes("Manager")
-    )
-      throw new BadRequestException("Rol inválido");
-
-    return this.authService.registerEmployee(id, createUserDto);
+    if (role === "manager") {
+      return this.authService.registerManager(id, createUserDto);
+    }
+    if (role === "employee") {
+      return this.authService.registerEmployee(id, createUserDto);
+    }
+    throw new BadRequestException("Rol inválido");
   }
-  @Post("/register/manager")
-  registerManager(@Body() createUserDto: CreateUserDto) {
-    if (
-      createUserDto.userRoles.includes("Admin") ||
-      createUserDto.userRoles.includes("Employee")
-    )
-      throw new BadRequestException("Rol inválido");
-
-    return this.authService.registerUser(createUserDto);
-  }
-
   @Post("/signin")
   async signIn(
     @Body() loginUserDto: LoginUserDto,

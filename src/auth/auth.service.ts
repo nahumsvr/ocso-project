@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -29,6 +30,11 @@ export class AuthService {
 
   async registerEmployee(id: string, createUserDto: CreateUserDto) {
     try {
+      const roles = createUserDto.userRoles;
+      if (roles.includes("Manager") || roles.includes("Admin")) {
+        throw new BadRequestException("Invalid");
+      }
+
       const hashedPassword = await bcrypt.hash(createUserDto.userPassword, 10);
       const userData = { ...createUserDto, userPassword: hashedPassword };
 
@@ -57,6 +63,11 @@ export class AuthService {
 
   async registerManager(id: string, createUserDto: CreateUserDto) {
     try {
+      const roles = createUserDto.userRoles;
+      if (roles.includes("Admin")) {
+        throw new BadRequestException("Invalid");
+      }
+
       const hashedPassword = await bcrypt.hash(createUserDto.userPassword, 10);
       const userData = { ...createUserDto, userPassword: hashedPassword };
 
