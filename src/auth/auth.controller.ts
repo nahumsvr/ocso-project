@@ -57,11 +57,8 @@ export class AuthController {
     return { token };
   }
 
-  @Patch("/:email")
-  updateUser(
-    @Param("email") email: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ) {
+  @Patch("/:id")
+  updateUser(@Param("id") email: string, @Body() updateUserDto: UpdateUserDto) {
     return this.authService.updateUser(email, updateUserDto);
   }
 }

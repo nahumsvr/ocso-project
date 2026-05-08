@@ -87,7 +87,10 @@ export class AuthService {
       employeeToUpdate.user = newUser;
 
       return this.managerRepository.save(employeeToUpdate);
-    } catch {
+    } catch (err: any) {
+      if (err.code == "23505") {
+        throw new BadRequestException("Ese correo ya está ocupado");
+      }
       throw new InternalServerErrorException(
         "Error inesperado al crear el usuario",
       );
